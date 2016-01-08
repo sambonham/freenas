@@ -230,12 +230,12 @@ if [ -f ${TOOLDIR}/usr/local/bin/create_package ]; then
     # Create the manifest file now
     env PYTHONPATH="${TOOLDIR}/usr/local/lib" ${TOOLDIR}/usr/local/bin/create_manifest \
 	-P ${NANO_OBJ}/_.packages/Packages \
-	-o ${NANO_OBJ}/_.packages/${NANO_LABEL}-${SEQUENCE:-0} \
+	-o ${NANO_OBJ}/_.packages/${NANO_LABEL}-${RELEASE:-0} \
 	-R ${NANO_LABEL}-${VERSION} ${seq_arg} -T ${TRAIN:-FreeNAS} \
 	-t $(date +%s) \
 	${PKG_FILES}
 
-    ln -sf ${NANO_LABEL}-${SEQUENCE:-0} ${NANO_OBJ}/_.packages/${NANO_LABEL}-MANIFEST
+    ln -sf ${NANO_LABEL}-${RELEASE:-0} ${NANO_OBJ}/_.packages/${NANO_LABEL}-MANIFEST
 else
     echo "What happened to the tools?!?!?!"
     false
