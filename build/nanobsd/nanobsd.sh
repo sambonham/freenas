@@ -231,11 +231,11 @@ if [ -f ${TOOLDIR}/usr/local/bin/create_package ]; then
     env PYTHONPATH="${TOOLDIR}/usr/local/lib" ${TOOLDIR}/usr/local/bin/create_manifest \
 	-P ${NANO_OBJ}/_.packages/Packages \
 	-o ${NANO_OBJ}/_.packages/${SEQUENCE} \
-	-R ${NANO_LABEL}-${SEQUENCE} ${seq_arg} -T ${TRAIN:-FreeNAS} \
+	-R ${SEQUENCE} ${seq_arg} -T ${TRAIN:-FreeNAS} \
 	-t $(date +%s) \
 	${PKG_FILES}
 
-    ln -sf ${NANO_LABEL}-${SEQUENCE} ${NANO_OBJ}/_.packages/${NANO_LABEL}-MANIFEST
+    ln -sf ${SEQUENCE} ${NANO_OBJ}/_.packages/${NANO_LABEL}-MANIFEST
 else
     echo "What happened to the tools?!?!?!"
     false
