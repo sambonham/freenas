@@ -52,10 +52,15 @@ standard_upgrade()
 	# place, so we only have to be concerned with gui-packages.tar.
     set -x
 	OS=${AVATAR_PROJECT}
+    UPDATE_INTERNAL=${UPDATE_INTERNAL}
 	UPGRADE_DIR=${SCRIPTDIR}/update
 	mkdir -p ${UPGRADE_DIR} || upgrade_fail "Unable to create package directory"
 	tar xf ${SCRIPTDIR}/gui-packages.tar -C ${UPGRADE_DIR} || upgrade_fail "Unable to extract package files"
+    if [" ${UPDATE_INTERNAL}" = "yes" ]; then
 	NEW_VERSION=${OS}-$(/usr/local/bin/manifest_util -M ${UPGRADE_DIR}/${OS}-MANIFEST sequence)
+    else
+    NEW_VERSION=$(/usr/local/bin/manifest_util -M ${UPGRADE_DIR}/${OS}-MANIFEST sequence)
+    fi
 	if [ "${NEW_VERSION}" = "${OS}-" ]; then
 	    upgrade_fail "Unable to determine sequence for new version"
 	fi
