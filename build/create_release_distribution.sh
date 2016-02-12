@@ -149,8 +149,7 @@ set -x
 set -e
 
 OBJ=objs
-UPDATE_INTERNAL=${UPDATE_INTERNAL}
-if [" ${UPDATE_INTERNAL}" = "yes" ]; then
+if [ "${UPDATE_INTERNAL}" = "yes" ]; then
     STAGEDIR="${NANO_LABEL}-${VERSION}-${BUILD_TIMESTAMP}"
 else
     STAGEDIR="${SEQUENCE}"
