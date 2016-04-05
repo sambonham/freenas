@@ -12,11 +12,19 @@
 generate_syslog_conf()
 {
 	local IFS="|"
+<<<<<<< e02ab28c9014600675d9c3ddda0364758a7a65c0
 	local f="stg_syslogserver stg_sysloglevel"
+=======
+	local f="stg_syslogserver"
+	local g="stg_sysloglevel"
+>>>>>>> Added "Syslog level" checkbox in GUI.
 	eval local $f
 	local sf=$(var_to_sf $f)
+	eval local $g
+	local sf=$(var_to_sf $g)
 	local serverhost=""
 	local serverport=""
+	local sysloglevel=""
 
 	cp /conf/base/etc/local/syslog-ng.conf.freenas /etc/local/syslog-ng.conf
 
@@ -44,12 +52,41 @@ generate_syslog_conf()
 {
 cat << __EOF__
 destination loghost { udp("${serverhost}" port(${serverport}) localport(514)); };
+<<<<<<< e02ab28c9014600675d9c3ddda0364758a7a65c0
 log { source(src);  filter(${stg_sysloglevel}); destination(loghost); };
+=======
+>>>>>>> Added "Syslog level" checkbox in GUI.
 __EOF__
 } >> /etc/local/syslog-ng.conf
 		fi
 	done
 
+<<<<<<< e02ab28c9014600675d9c3ddda0364758a7a65c0
+=======
+### Fetching the syslog level from database writing log leve filer in syslog-ng config file
+        ${FREENAS_SQLITE_CMD} ${FREENAS_CONFIG} "
+        SELECT
+                $sg
+
+        FROM
+                system_settings
+
+        ORDER BY
+                -id
+
+        LIMIT 1
+        " | \
+        while eval read -r $g; do
+                if [ -n "${stg_sysloglevel}" ]; then
+                        sysloglevel=${stg_sysloglevel}
+{
+cat << __EOF__
+log { source(src);  filter(${sysloglevel}); destination(loghost); };
+__EOF__
+} >> /etc/local/syslog-ng.conf
+                fi
+        done
+>>>>>>> Added "Syslog level" checkbox in GUI.
 }
 
 
